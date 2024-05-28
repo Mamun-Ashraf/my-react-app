@@ -4,7 +4,7 @@ const Accordian = () => {
       <h1 className="my-16 text-center font-bold text-3xl">
         Frequently Asked Questions!
       </h1>
-      <div className="collapse collapse-arrow bg-base-200">
+      <div className="collapse collapse-arrow bg-base-200 mb-4">
         <input type="radio" name="my-accordion-2" defaultChecked />
         <div className="collapse-title text-xl font-medium">
           Click to open this one and close others
@@ -13,7 +13,7 @@ const Accordian = () => {
           <p>hello</p>
         </div>
       </div>
-      <div className="collapse collapse-arrow bg-base-200">
+      <div className="collapse collapse-arrow bg-base-200 mb-4">
         <input type="radio" name="my-accordion-2" />
         <div className="collapse-title text-xl font-medium">
           Click to open this one and close others
