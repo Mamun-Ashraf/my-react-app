@@ -8,6 +8,7 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import Dashboard from "../pages/Dashboard";
 import Registration from "../pages/Registration";
 import PrivateRoute from "./private/PrivateRoute";
+import AllProducts from "../pages/AllProducts";
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
       {
         path: "/about",
         element: <About />,
+      },
+      {
+        path: "/allProducts",
+        element: <AllProducts />,
       },
       {
         path: "/login",

@@ -3,6 +3,7 @@ import Accordian from "../components/home/Accordian";
 import Banner from "../components/home/Banner";
 import ProductCard from "../components/cards/ProductCard";
 import CategoryCard from "../components/cards/CategoryCard";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -14,7 +15,6 @@ const Home = () => {
       const productRes = await fetch("http://localhost:3000/products");
       const productData = await productRes.json();
       setProducts(productData);
-      console.log(products);
       //get categories
 
       const categoryRes = await fetch("http://localhost:3000/categories");
@@ -31,7 +31,7 @@ const Home = () => {
         <h1 className="text-4xl my-20 text-center text-secondary">
           Our Product Categories{" "}
         </h1>
-        <div className="grid grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {productCategories?.map((category) => (
             <CategoryCard key={category?.id} category={category} />
           ))}
@@ -50,6 +50,9 @@ const Home = () => {
             ))}
         </div>
       </div>
+      <Link to="/allProducts" className="mt-5 flex justify-center">
+        <button className="btn btn-secondary w-1/5">See All</button>
+      </Link>
       <Accordian />
     </div>
   );
