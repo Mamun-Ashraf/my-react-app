@@ -5,10 +5,13 @@ import About from "../pages/About";
 import Login from "../pages/Login";
 import ErrorPage from "../pages/ErrorPage";
 import DashboardLayout from "../layouts/DashboardLayout";
-import Dashboard from "../pages/Dashboard";
+import DashboardHome from "../pages/dashboard/DashboardHome";
 import Registration from "../pages/Registration";
 import PrivateRoute from "./private/PrivateRoute";
 import AllProducts from "../pages/AllProducts";
+import ManageAllProducts from "../pages/dashboard/ManageAllProducts";
+import AddProduct from "../pages/dashboard/AddProduct";
+import EditProduct from "../pages/dashboard/EditProduct";
 
 export const router = createBrowserRouter([
   {
@@ -40,16 +43,28 @@ export const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <DashboardLayout />,
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "",
-        element: (
-          <PrivateRoute>
-            <Dashboard />
-          </PrivateRoute>
-        ),
+        index: true,
+        element: <DashboardHome />,
+      },
+      {
+        path: "manageProducts",
+        element: <ManageAllProducts />,
+      },
+      {
+        path: "addProduct",
+        element: <AddProduct />,
+      },
+      {
+        path: "editProduct/:id",
+        element: <EditProduct />,
       },
     ],
   },
