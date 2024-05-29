@@ -15,7 +15,7 @@ const Dashboard = () => {
         </div>
       </div>
       <p className="ms-5 mb-3">
-        <span className="text-lg font-medium">Name:</span> {user?.name}
+        <span className="text-lg font-medium">Name:</span> {user?.displayName}
       </p>
       <p className="ms-5">
         <span className="text-lg font-medium">Email:</span> {user?.email}

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const EditProduct = () => {
   const { id } = useParams();
@@ -28,39 +29,64 @@ const EditProduct = () => {
     load();
   }, [id]);
 
-  const handleCreateProduct = async (e) => {
+  const handleUpdateProduct = async (e) => {
     e.preventDefault();
 
     const form = e.target;
 
-    const title = form.title.value;
+    const name = form.name.value;
     const price = form.price.value;
     const category = form.category.value;
     const seller = form.seller.value;
     const productData = {
       id,
-      title,
+      name,
       price,
       category,
       seller,
     };
 
-    await axios.patch(`http://localhost:3000/products/${id}`, productData);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, update it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await axios.patch(
+            `http://localhost:3000/products/${id}`,
+            productData
+          );
+
+          Swal.fire("Updated!", "The product has been updated.", "success");
+        } catch (error) {
+          Swal.fire(
+            "Error!",
+            "There was an issue updating the product.",
+            "error"
+          );
+        }
+      }
+    });
   };
   return (
     <div className="w-2/3 mx-auto">
       <h1 className="text-2xl text-center text-secondary mb-4">
         Update Product
       </h1>
-      <form onSubmit={handleCreateProduct} className="w-full">
+      <form onSubmit={handleUpdateProduct} className="w-full">
         <div className="mb-4">
           <label className="font-medium" htmlFor="">
-            Title{" "}
+            Name{" "}
           </label>
           <input
             defaultValue={productDetails?.name}
             type="text"
-            name="title"
+            name="name"
             className="w-full py-3 px-5 border border-primary rounded"
           />
         </div>
