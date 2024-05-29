@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 const AddProduct = () => {
   const [categories, setCategories] = useState();
@@ -21,19 +22,41 @@ const AddProduct = () => {
     const form = e.target;
 
     const id = form.id.value;
-    const title = form.title.value;
+    const name = form.name.value;
     const price = form.price.value;
     const category = form.category.value;
     const seller = form.seller.value;
     const productData = {
       id,
-      title,
+      name,
       price,
       category,
       seller,
     };
 
-    await axios.post("http://localhost:3000/products", productData);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Add it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await axios.post("http://localhost:3000/products", productData);
+
+          Swal.fire("Added!", "The product has been added.", "success");
+        } catch (error) {
+          Swal.fire(
+            "Error!",
+            "There was an issue adding the product.",
+            "error"
+          );
+        }
+      }
+    });
   };
   return (
     <div className="w-2/3 mx-auto">
@@ -51,11 +74,11 @@ const AddProduct = () => {
         </div>
         <div className="mb-4">
           <label className="font-medium" htmlFor="">
-            Title{" "}
+            Name{" "}
           </label>
           <input
             type="text"
-            name="title"
+            name="name"
             className="w-full py-3 px-5 border border-primary rounded"
           />
         </div>
